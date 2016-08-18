@@ -1,5 +1,11 @@
 angular.module('ionic-stock', [
     'ionic',
+    'ngCordova',
+    'firebase',
+    'angular-cache',
+    'nvd3',
+    'nvChart',
+    'cb.x2js',
     'ionic-stock.controllers',
     'ionic-stock.services',
     'ionic-stock.filters',

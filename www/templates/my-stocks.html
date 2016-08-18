@@ -1,12 +1,39 @@
-<ion-view view-title="My Stocks">
+<ion-view view-title="My Stocks" id="my-stocks">
+
+    <ion-nav-buttons side="right">
+
+        <button class="button button-clear" ng-click="modalService.openModal(1)">
+            <i class="icon icon-small ion-ios-search"></i>
+        </button>
+
+    </ion-nav-buttons>
+
+
+
   <ion-content>
+      <ion-refresher
+          pulling-text="Pull to refresh..."
+          on-refresh="getMyStocksData()"
+          class="margin-auto"
+      ></ion-refresher>
     <ion-list>
-      <ion-item ng-repeat="stock in myStocksArray track by stock.ticker" ng-href="#/app/{{stock.ticker}}">
+      <ion-item ng-repeat="stock in myStocksData track by stock.symbol" ng-href="#/app/{{stock.symbol}}">
         <div class="row row-center">
-            <div class="col">
-                <h2>{{stock.ticker}}</h2>
+            <div class="col stock-ticker-name">
+                <h3>{{stock.symbol}}</h3>
+                <h6 ng-bind-htm="::stock.Name"></h6>
+            </div>
+            <div class="col col-25 stock-price-time">
+                <h3>{{stock.price | shrinkNumber:2 }}</h3>
+                <h6>{{stock.LastTradeTime | date:'h:mm a'}}</h6>
+            </div>
+            <div class="col col-33 stock-change" ng-class="stock.Change >= 0 ? 'background-green' : 'background-red'">
+                <h3>{{stock.ChangeinPercent}}</h3>
+                <h6><span ng-if="stock.Change >= 0">+</span>{{stock.Change | shrinkNumber:2 }}</h6>
             </div>
         </div>
+
+        <ion-option-button class="button-light icon ion-minus-circled color-red inset-shadow" ng-click="unfollowStock(stock.symbol)"></ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>

@@ -1,6 +1,6 @@
 {
   "name": "ionic-stock",
-  "app_id": "",
+  "app_id": "f11db125",
   "gulpStartupTasks": [
     "sass",
     "watch"
